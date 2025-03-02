@@ -34,6 +34,22 @@ class LinkedList {
     this.head = node;
     this.size++;
   }
+
+  getSize() {
+    return this.size;
+  }
+
+  getHead() {
+    return this.head ? this.head.value : null;
+  }
+
+  getTail() {
+    if (!this.head) return null;
+    let current;
+    current = this.head;
+    while (current.nextNode) current = current.nextNode;
+    return current.value;
+  }
 }
 
 let list = new LinkedList();
@@ -42,6 +58,6 @@ list.append(30);
 list.prepend(10);
 
 // testing
-console.log(list.head.value);
-console.log(list.head.nextNode.value);
-console.log(list.head.nextNode.nextNode.value);
+console.log(list.getSize());
+console.log(list.getHead());
+console.log(list.getTail());
