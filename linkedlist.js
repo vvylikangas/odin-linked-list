@@ -124,6 +124,64 @@ class LinkedList {
     list += ' null';
     return list;
   }
+
+  insertAt(value, index) {
+    if (index < 0 || index > this.size)
+      return `Index out of range. Please use index between 0 and ${this.size}`;
+
+    if (index === 0) {
+      this.prepend(value);
+      return `inserted ${value} at index 0`;
+    }
+
+    let count = 0;
+    let current = this.head;
+    let prev = null;
+
+    while (count < index) {
+      prev = current;
+      current = current.nextNode;
+      count++;
+    }
+
+    let node = new Node(value);
+
+    prev.nextNode = node;
+    node.nextNode = current;
+
+    this.size++;
+
+    return `inserted ${value} at index ${index}`;
+  }
+
+  removeAt(index) {
+    if (this.size === 0) {
+      return 'The list is empty. No node to remove.';
+    }
+
+    if (index < 0 || index >= this.size)
+      return `Index out of range. Please use index between 0 and ${
+        this.size - 1
+      }`;
+
+    let current = this.head;
+    let prev = null;
+
+    if (index === 0) {
+      this.head = current.nextNode;
+    } else {
+      let count = 0;
+      while (count < index) {
+        prev = current;
+        current = current.nextNode;
+        count++;
+      }
+      prev.nextNode = current.nextNode;
+    }
+
+    this.size--;
+    return `Deleted ${current.value} at index ${index}`;
+  }
 }
 
 let list = new LinkedList();
@@ -141,4 +199,8 @@ console.log(list.getAt(1));
 console.log(list.pop());
 console.log(list.contains(10));
 console.log(list.find(30));
+console.log(list.toString());
+console.log(list.insertAt(60, 4));
+console.log(list.toString());
+console.log(list.removeAt(1));
 console.log(list.toString());
