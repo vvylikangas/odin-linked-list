@@ -15,7 +15,7 @@ class LinkedList {
     let node = new Node(value);
     let current;
 
-    if (this.head == null) this.head = node;
+    if (!this.head) this.head = node;
     else {
       current = this.head;
 
@@ -45,8 +45,7 @@ class LinkedList {
 
   getTail() {
     if (!this.head) return null;
-    let current;
-    current = this.head;
+    let current = this.head;
     while (current.nextNode) current = current.nextNode;
     return current.value;
   }
@@ -87,11 +86,51 @@ class LinkedList {
 
     return current.value;
   }
+
+  contains(value) {
+    if (!this.head) return false;
+
+    let current = this.head;
+    while (current) {
+      if (current.value === value) return true;
+      current = current.nextNode;
+    }
+    return false;
+  }
+
+  find(value) {
+    if (!this.head) return null;
+    let current = this.head;
+    let count = 0;
+
+    while (current) {
+      if (current.value === value) return count;
+      current = current.nextNode;
+      count++;
+    }
+    return null;
+  }
+
+  toString() {
+    if (!this.head) return 'null';
+
+    let list = '';
+    let current = this.head;
+
+    while (current) {
+      list += `( ${current.value} ) -> `;
+      current = current.nextNode;
+    }
+    list += ' null';
+    return list;
+  }
 }
 
 let list = new LinkedList();
 list.append(20);
 list.append(30);
+list.append(40);
+list.append(50);
 list.prepend(10);
 
 // testing
@@ -100,3 +139,6 @@ console.log(list.getHead());
 console.log(list.getTail());
 console.log(list.getAt(1));
 console.log(list.pop());
+console.log(list.contains(10));
+console.log(list.find(30));
+console.log(list.toString());
