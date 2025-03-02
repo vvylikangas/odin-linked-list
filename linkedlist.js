@@ -50,6 +50,43 @@ class LinkedList {
     while (current.nextNode) current = current.nextNode;
     return current.value;
   }
+
+  getAt(index) {
+    if (index < 0 || index >= this.size) return null;
+
+    let current = this.head;
+    let count = 0;
+
+    while (current) {
+      if (count === index) return current.value;
+      current = current.nextNode;
+      count++;
+    }
+  }
+
+  pop() {
+    if (!this.head) return null;
+
+    if (!this.head.nextNode) {
+      let value = this.head.value;
+      this.head = null;
+      this.size--;
+      return value;
+    }
+
+    let current = this.head;
+    let prev = null;
+
+    while (current.nextNode) {
+      prev = current;
+      current = current.nextNode;
+    }
+
+    prev.nextNode = null;
+    this.size--;
+
+    return current.value;
+  }
 }
 
 let list = new LinkedList();
@@ -61,3 +98,5 @@ list.prepend(10);
 console.log(list.getSize());
 console.log(list.getHead());
 console.log(list.getTail());
+console.log(list.getAt(1));
+console.log(list.pop());
